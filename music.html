@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Together</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0B1026;--bg2:#111936;--gold:#F6C453;--gold2:#ffd980;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{min-height:100vh;width:100%;overflow:hidden;
+background:radial-gradient(circle at 50% 75%,rgba(246,196,83,.10),transparent 26%),
+radial-gradient(circle at center,#111936 0%,#0B1026 55%,#030712 100%);
+font-family:sans-serif;}
+
+/* TITLE — LEFT SIDE */
+h1{position:fixed;top:26px;left:36px;
+font-family:"Great Vibes",cursive;font-size:clamp(3rem,8vw,5.2rem);
+color:var(--gold);font-weight:400;
+text-shadow:0 0 28px rgba(246,196,83,.85),0 0 60px rgba(246,196,83,.3);
+z-index:50;white-space:nowrap;animation:titleGlow 3s ease-in-out infinite alternate;}
+@keyframes titleGlow{
+from{text-shadow:0 0 20px rgba(246,196,83,.7),0 0 45px rgba(246,196,83,.25);}
+to{text-shadow:0 0 40px rgba(246,196,83,1),0 0 80px rgba(246,196,83,.45);}
+}
+
+/* CRESCENT MOON — moved lower, more centered away from music button */
+.moon{position:fixed;top:72px;right:130px;z-index:100;width:52px;height:52px;pointer-events:none;}
+.moon svg{width:100%;height:100%;filter:drop-shadow(0 0 12px rgba(200,210,255,.7)) drop-shadow(0 0 28px rgba(180,200,255,.4));
+animation:moonGlow 4s ease-in-out infinite alternate;}
+@keyframes moonGlow{
+from{filter:drop-shadow(0 0 10px rgba(200,210,255,.6)) drop-shadow(0 0 22px rgba(180,200,255,.3));}
+to{filter:drop-shadow(0 0 22px rgba(220,230,255,.9)) drop-shadow(0 0 45px rgba(180,200,255,.55));}}
+
+/* CLOUDS — darker, more of them */
+.clouds{position:fixed;top:0;left:0;right:0;height:230px;z-index:8;overflow:hidden;pointer-events:none;}
+.cloud{position:absolute;}
+.cloud-body{position:relative;display:inline-block;}
+.cloud-body::before,.cloud-body::after{content:'';position:absolute;background:inherit;border-radius:50%;}
+
+/* Layer 1 — very dark, almost charcoal */
+.c1{top:20px;animation:cld1 62s linear infinite;opacity:.80;filter:blur(4px);}
+.c1 .cloud-body{width:190px;height:52px;background:radial-gradient(ellipse at 50% 65%,#1e2432,#2a3040);border-radius:50px;box-shadow:0 4px 20px rgba(0,0,0,.5);}
+.c1 .cloud-body::before{width:95px;height:78px;top:-36px;left:28px;background:radial-gradient(ellipse at 50% 70%,#1e2432,#252d3e);}
+.c1 .cloud-body::after{width:72px;height:56px;top:-22px;left:98px;background:radial-gradient(ellipse at 50% 70%,#1e2432,#22293a);}
+
+.c2{top:42px;animation:cld2 44s linear infinite;opacity:.70;filter:blur(5px);}
+.c2 .cloud-body{width:140px;height:40px;background:radial-gradient(ellipse at 50% 65%,#181f2e,#222a38);border-radius:40px;}
+.c2 .cloud-body::before{width:70px;height:60px;top:-28px;left:20px;background:radial-gradient(ellipse at 50% 70%,#181f2e,#252d3e);}
+.c2 .cloud-body::after{width:52px;height:42px;top:-18px;left:74px;background:radial-gradient(ellipse at 50% 65%,#181f2e,#222a38);}
+
+.c3{top:14px;animation:cld3 31s linear infinite;opacity:.60;filter:blur(6px);}
+.c3 .cloud-body{width:105px;height:32px;background:radial-gradient(ellipse at 50% 65%,#1c2333,#2b3347);border-radius:30px;}
+.c3 .cloud-body::before{width:52px;height:46px;top:-22px;left:16px;background:radial-gradient(ellipse at 50% 70%,#1c2333,#2b3347);}
+.c3 .cloud-body::after{width:40px;height:32px;top:-14px;left:56px;background:radial-gradient(ellipse at 50% 65%,#1c2333,#252e42);}
+
+.c4{top:62px;animation:cld4 80s linear infinite;opacity:.50;filter:blur(9px);}
+.c4 .cloud-body{width:240px;height:66px;background:radial-gradient(ellipse at 50% 65%,#131926,#1e2535);border-radius:60px;}
+.c4 .cloud-body::before{width:120px;height:96px;top:-44px;left:32px;background:radial-gradient(ellipse at 50% 70%,#131926,#1a2130);}
+.c4 .cloud-body::after{width:94px;height:70px;top:-30px;left:118px;background:radial-gradient(ellipse at 50% 65%,#131926,#1e2535);}
+
+.c5{top:10px;animation:cld5 50s linear infinite;opacity:.68;filter:blur(4px);}
+.c5 .cloud-body{width:160px;height:45px;background:radial-gradient(ellipse at 50% 65%,#1a2233,#28303f);border-radius:44px;}
+.c5 .cloud-body::before{width:80px;height:68px;top:-32px;left:24px;background:radial-gradient(ellipse at 50% 70%,#1a2233,#263040);}
+.c5 .cloud-body::after{width:62px;height:48px;top:-20px;left:84px;background:radial-gradient(ellipse at 50% 65%,#1a2233,#242c3b);}
+
+.c6{top:54px;animation:cld6 37s linear infinite;opacity:.55;filter:blur(7px);}
+.c6 .cloud-body{width:120px;height:34px;background:radial-gradient(ellipse at 50% 65%,#181e2c,#202840);border-radius:32px;}
+.c6 .cloud-body::before{width:60px;height:52px;top:-24px;left:18px;background:radial-gradient(ellipse at 50% 70%,#181e2c,#232b3e);}
+.c6 .cloud-body::after{width:46px;height:36px;top:-15px;left:66px;background:radial-gradient(ellipse at 50% 65%,#181e2c,#202840);}
+
+/* Extra clouds */
+.c7{top:30px;animation:cld7 55s linear infinite;opacity:.72;filter:blur(5px);}
+.c7 .cloud-body{width:175px;height:48px;background:radial-gradient(ellipse at 50% 65%,#1b2130,#27303f);border-radius:46px;box-shadow:0 4px 18px rgba(0,0,0,.4);}
+.c7 .cloud-body::before{width:88px;height:72px;top:-34px;left:26px;background:radial-gradient(ellipse at 50% 70%,#1b2130,#25303e);}
+.c7 .cloud-body::after{width:66px;height:52px;top:-20px;left:94px;background:radial-gradient(ellipse at 50% 65%,#1b2130,#232d3c);}
+
+.c8{top:8px;animation:cld8 42s linear infinite;opacity:.62;filter:blur(6px);}
+.c8 .cloud-body{width:130px;height:38px;background:radial-gradient(ellipse at 50% 65%,#161d2a,#1f2738);border-radius:36px;}
+.c8 .cloud-body::before{width:65px;height:56px;top:-26px;left:20px;background:radial-gradient(ellipse at 50% 70%,#161d2a,#1e2636);}
+.c8 .cloud-body::after{width:50px;height:40px;top:-16px;left:70px;background:radial-gradient(ellipse at 50% 65%,#161d2a,#1d2535);}
+
+.c9{top:48px;animation:cld9 68s linear infinite;opacity:.45;filter:blur(8px);}
+.c9 .cloud-body{width:210px;height:58px;background:radial-gradient(ellipse at 50% 65%,#121822,#1c2330);border-radius:55px;}
+.c9 .cloud-body::before{width:105px;height:84px;top:-40px;left:30px;background:radial-gradient(ellipse at 50% 70%,#121822,#19202e);}
+.c9 .cloud-body::after{width:82px;height:62px;top:-26px;left:108px;background:radial-gradient(ellipse at 50% 65%,#121822,#1c2330);}
+
+@keyframes cld1{from{transform:translateX(-230px);}to{transform:translateX(calc(100vw + 230px));}}
+@keyframes cld2{from{transform:translateX(calc(100vw + 170px));}to{transform:translateX(-170px);}}
+@keyframes cld3{from{transform:translateX(-140px);}to{transform:translateX(calc(100vw + 140px));}}
+@keyframes cld4{from{transform:translateX(calc(100vw + 280px));}to{transform:translateX(-280px);}}
+@keyframes cld5{from{transform:translateX(20vw);}to{transform:translateX(calc(100vw + 195px));}}
+@keyframes cld6{from{transform:translateX(calc(100vw + 150px));}to{transform:translateX(-150px);}}
+@keyframes cld7{from{transform:translateX(-210px);}to{transform:translateX(calc(100vw + 210px));}}
+@keyframes cld8{from{transform:translateX(calc(100vw + 160px));}to{transform:translateX(-160px);}}
+@keyframes cld9{from{transform:translateX(15vw);}to{transform:translateX(calc(100vw + 250px));}}
+
+/* MUSIC BUTTON — top right */
+.music-wrap{position:fixed;top:22px;right:22px;display:flex;flex-direction:column;align-items:center;gap:5px;z-index:100;}
+.music-btn{width:58px;height:58px;border-radius:50%;border:2px solid rgba(246,196,83,.85);
+background:rgba(6,10,28,.75);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;
+box-shadow:0 0 22px rgba(246,196,83,.45),0 0 50px rgba(246,196,83,.15),inset 0 0 12px rgba(246,196,83,.08);
+position:relative;overflow:hidden;}
+.music-btn::before{content:'';position:absolute;inset:-2px;border-radius:50%;
+background:conic-gradient(var(--gold),rgba(246,196,83,.2) 60%,var(--gold));
+animation:spinRing 3s linear infinite;opacity:0;transition:opacity .3s;}
+.music-btn.playing::before{opacity:.6;}
+.music-btn::after{content:'';position:absolute;inset:2px;border-radius:50%;background:rgba(6,10,28,.8);}
+@keyframes spinRing{to{transform:rotate(360deg);}}
+.music-btn svg{position:relative;z-index:1;width:26px;height:26px;fill:var(--gold);
+filter:drop-shadow(0 0 7px rgba(246,196,83,1));transition:transform .2s;}
+.music-btn:hover{transform:scale(1.1);box-shadow:0 0 36px rgba(246,196,83,.7),0 0 70px rgba(246,196,83,.25);}
+.music-btn:hover svg{transform:scale(1.15);}
+.music-btn.playing{animation:btnPulse 2s ease-in-out infinite;}
+@keyframes btnPulse{
+0%,100%{box-shadow:0 0 22px rgba(246,196,83,.45),inset 0 0 12px rgba(246,196,83,.08);}
+50%{box-shadow:0 0 45px rgba(246,196,83,.8),0 0 75px rgba(246,196,83,.3);}
+}
+.music-label{font-family:"Amiri",serif;font-size:.68rem;color:rgba(246,196,83,.8);letter-spacing:2px;text-transform:uppercase;}
+
+/* RAYS */
+.rays{position:fixed;top:0;left:50%;transform:translateX(-50%);width:700px;height:600px;
+background:conic-gradient(from 255deg at 50% 0%,transparent 0deg,rgba(246,196,83,.022) 4deg,transparent 8deg,rgba(246,196,83,.016) 16deg,transparent 22deg,rgba(255,255,255,.012) 32deg,transparent 38deg);
+animation:rayPulse 9s ease-in-out infinite;z-index:2;pointer-events:none;}
+@keyframes rayPulse{0%,100%{opacity:.5;}50%{opacity:1;}}
+
+/* SCENE */
+.scene{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:210px;}
+.scene-glow{position:absolute;top:55%;left:50%;transform:translate(-50%,-50%);width:500px;height:300px;
+background:radial-gradient(ellipse,rgba(246,196,83,.09) 0%,transparent 65%);
+animation:glowBreath 4.5s ease-in-out infinite;pointer-events:none;z-index:1;}
+@keyframes glowBreath{0%,100%{opacity:.7;transform:translate(-50%,-50%) scale(1);}50%{opacity:1;transform:translate(-50%,-50%) scale(1.1);}}
+.tree-l,.tree-r{position:fixed;bottom:0;z-index:6;pointer-events:none;}
+.tree-l{left:-8px;}.tree-r{right:-8px;}
+
+/* COUPLE PHOTO */
+.char-wrap{
+  position:absolute;
+  bottom:28px;
+  left:50%;
+  transform:translateX(-50%);
+  width:300px;
+  display:flex;justify-content:center;align-items:flex-end;
+  z-index:12;
+  animation:charFloat2 4.5s ease-in-out infinite;
+  transform-origin:bottom center;
+}
+@keyframes charFloat2{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-5px);}}
+.char-wrap img{
+  width:100%;
+  max-width:300px;
+  display:block;
+  filter:drop-shadow(0 -2px 20px rgba(246,196,83,.25)) drop-shadow(0 10px 30px rgba(0,0,0,.85));
+  border-radius:4px;
+}
+.char-halo{position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+width:220px;height:65px;background:radial-gradient(ellipse at 50% 90%,rgba(246,196,83,.18) 0%,transparent 70%);
+z-index:6;pointer-events:none;}
+
+/* BOTTOM FADE */
+.bottom-fade{position:fixed;bottom:0;left:0;right:0;height:130px;
+background:linear-gradient(180deg,transparent,rgba(3,7,18,.92));z-index:5;pointer-events:none;}
+
+/* TWINKLING STARS */
+.star{position:fixed;border-radius:50%;pointer-events:none;background:#fff;}
+.star.type-gold{background:var(--gold);}
+.star.type-blue{background:#c8e0ff;}
+@keyframes twinkle{
+  0%,100%{opacity:.1;transform:scale(.5) rotate(0deg);}
+  25%{opacity:1;transform:scale(1.6) rotate(15deg);}
+  50%{opacity:.3;transform:scale(.8) rotate(-5deg);}
+  75%{opacity:.9;transform:scale(1.3) rotate(10deg);}
+}
+@keyframes jiggle{
+  0%,100%{transform:translate(0,0) scale(1);}
+  20%{transform:translate(2px,-3px) scale(1.1);}
+  40%{transform:translate(-2px,2px) scale(.95);}
+  60%{transform:translate(3px,1px) scale(1.05);}
+  80%{transform:translate(-1px,-2px) scale(1.08);}
+}
+@keyframes shootStar{
+  0%{opacity:0;transform:translateX(0) translateY(0);}
+  5%{opacity:1;}
+  100%{opacity:0;transform:translateX(-220px) translateY(90px);}
+}
+.shoot{position:fixed;width:2px;height:2px;background:#fff;border-radius:50%;
+box-shadow:0 0 6px 2px rgba(255,255,255,.7),6px 0 12px rgba(255,255,255,.4);
+pointer-events:none;animation:shootStar linear forwards;}
+
+/* SPARKS — reduced */
+.spark{position:fixed;width:4px;height:4px;border-radius:50%;background:var(--gold);
+box-shadow:0 0 14px var(--gold);animation:sparkle 2.6s ease-in-out infinite;pointer-events:none;}
+@keyframes sparkle{0%,100%{opacity:.2;transform:scale(1);}50%{opacity:1;transform:scale(1.9);}}
+
+/* FIREFLIES */
+.firefly{position:fixed;border-radius:50%;pointer-events:none;animation:fireflyDrift linear infinite;}
+@keyframes fireflyDrift{
+0%{opacity:0;transform:translateY(0) translateX(0);}15%{opacity:1;}
+50%{opacity:.8;transform:translateY(-50px) translateX(18px);}85%{opacity:.4;}
+100%{opacity:0;transform:translateY(-110px) translateX(-10px);}}
+
+/* FLOATERS */
+.floater{position:fixed;animation:floatUp linear infinite;opacity:0;pointer-events:none;}
+@keyframes floatUp{
+0%{opacity:0;transform:translateY(0) rotate(-15deg) scale(.5);}14%{opacity:.85;}
+82%{opacity:.25;}100%{opacity:0;transform:translateY(-190px) rotate(18deg) scale(1);}}
+
+/* NEXT BTN */
+.next-btn{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);
+padding:8px 22px;border:1.5px solid var(--gold);border-radius:18px;
+background:rgba(246,196,83,.12);color:var(--gold);font-family:"Amiri",serif;font-size:.95rem;
+text-decoration:none;box-shadow:0 0 13px rgba(246,196,83,.35);z-index:60;transition:all .3s;white-space:nowrap;}
+.next-btn:hover{background:rgba(246,196,83,.22);box-shadow:0 0 26px rgba(246,196,83,.55);transform:translateX(-50%) scale(1.05);}
+
+@media(max-width:480px){
+.branch{width:280px;}.ropes{width:218px;height:152px;}.seat{width:238px;}
+.char-wrap{width:240px;}.scene{padding-top:195px;}
+h1{top:20px;left:16px;font-size:clamp(2.5rem,13vw,3.6rem);}
+.music-wrap{top:18px;right:16px;}.music-btn{width:50px;height:50px;}.music-btn svg{width:22px;height:22px;}
+.moon{top:70px;right:100px;width:42px;height:42px;}
+}
+</style>
+</head>
+<body>
+
+<h1>Together</h1>
+
+<!-- CRESCENT MOON — repositioned lower and away from music btn -->
+<div class="moon">
+  <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <mask id="crescentMask">
+        <circle cx="26" cy="26" r="22" fill="white"/>
+        <circle cx="36" cy="20" r="18" fill="black"/>
+      </mask>
+    </defs>
+    <circle cx="26" cy="26" r="22" fill="#cdd8f0" mask="url(#crescentMask)"/>
+    <circle cx="26" cy="26" r="22"
+      fill="url(#moonGrad)" mask="url(#crescentMask)" opacity=".5"/>
+    <defs>
+      <radialGradient id="moonGrad" cx="35%" cy="30%" r="65%">
+        <stop offset="0%" stop-color="#eef3ff"/>
+        <stop offset="100%" stop-color="#8899cc"/>
+      </radialGradient>
+    </defs>
+    <circle cx="18" cy="28" r="2.5" fill="rgba(100,120,180,.25)" mask="url(#crescentMask)"/>
+    <circle cx="22" cy="38" r="1.8" fill="rgba(100,120,180,.2)" mask="url(#crescentMask)"/>
+    <circle cx="14" cy="20" r="1.5" fill="rgba(100,120,180,.18)" mask="url(#crescentMask)"/>
+  </svg>
+</div>
+
+<div class="clouds">
+  <div class="cloud c1"><div class="cloud-body"></div></div>
+  <div class="cloud c2"><div class="cloud-body"></div></div>
+  <div class="cloud c3"><div class="cloud-body"></div></div>
+  <div class="cloud c4"><div class="cloud-body"></div></div>
+  <div class="cloud c5"><div class="cloud-body"></div></div>
+  <div class="cloud c6"><div class="cloud-body"></div></div>
+  <div class="cloud c7"><div class="cloud-body"></div></div>
+  <div class="cloud c8"><div class="cloud-body"></div></div>
+  <div class="cloud c9"><div class="cloud-body"></div></div>
+</div>
+
+<div class="music-wrap">
+  <button class="music-btn" id="musicBtn" onclick="toggleMusic()">
+    <svg id="playIco" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    <svg id="pauseIco" viewBox="0 0 24 24" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+  </button>
+  <span class="music-label">&#9836; Music</span>
+</div>
+
+<div class="rays"></div>
+<div class="bottom-fade"></div>
+
+<div class="scene">
+  <div class="scene-glow"></div>
+
+  <svg class="tree-l" width="130" height="440" viewBox="0 0 130 440">
+    <path d="M55 440 Q53 310 50 250 Q25 218 6 162 Q36 174 50 205 Q44 162 28 96 Q55 128 60 185 Q57 134 50 55 Q74 98 70 205 Q76 142 86 78 Q93 128 82 215 Q98 182 122 172 Q102 218 76 248 Q73 310 73 440Z" fill="rgba(6,10,26,0.95)"/>
+  </svg>
+  <svg class="tree-r" width="130" height="440" viewBox="0 0 130 440">
+    <path d="M55 440 Q53 310 50 250 Q25 218 6 162 Q36 174 50 205 Q44 162 28 96 Q55 128 60 185 Q57 134 50 55 Q74 98 70 205 Q76 142 86 78 Q93 128 82 215 Q98 182 122 172 Q102 218 76 248 Q73 310 73 440Z" fill="rgba(6,10,26,0.95)" transform="scale(-1,1) translate(-130,0)"/>
+  </svg>
+
+  <div class="swing-wrap">
+    <div class="branch">
+      <div class="branch-garland">
+        <div class="bgem"></div><div class="bgem"></div><div class="bgem"></div>
+        <div class="bgem"></div><div class="bgem"></div>
+      </div>
+    </div>
+    <div class="swing-arm">
+      <div class="ropes">
+        <svg class="rope-svg" viewBox="0 0 18 185" preserveAspectRatio="none">
+          <path d="M9,0 C7,46 11,92 9,185" stroke="#6b3e12" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+        </svg>
+        <svg class="rope-svg" viewBox="0 0 18 185" preserveAspectRatio="none">
+          <path d="M9,0 C11,46 7,92 9,185" stroke="#6b3e12" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="seat" style="position:relative;">
+        <div class="seat-gems">
+          <div class="sgem"></div><div class="sgem"></div><div class="sgem"></div>
+        </div>
+        <div class="char-wrap">
+          <div class="char-halo"></div>
+          <img src="pic1.jpeg" alt="Couple" id="coupleImg"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="floaters"></div>
+<a class="next-btn" href="game1.html">Continue &#10148;</a>
+<audio id="bgAudio" loop><source src="song1.mpeg" type="audio/mpeg"></audio>
+
+<script>
+// Music toggle
+let playing = false;
+const audio = document.getElementById('bgAudio');
+const btn   = document.getElementById('musicBtn');
+const pi    = document.getElementById('playIco');
+const pa    = document.getElementById('pauseIco');
+function toggleMusic(){
+  if(playing){
+    audio.pause();
+    btn.classList.remove('playing');
+    pi.style.display=''; pa.style.display='none';
+  } else {
+    audio.play().catch(()=>{});
+    btn.classList.add('playing');
+    pi.style.display='none'; pa.style.display='';
+  }
+  playing = !playing;
+}
+
+/* ===== STARS — reduced jiggle (1 in 12 instead of 1 in 5) ===== */
+const starColors = ['#ffffff','#fffbe0','#F6C453','#c8e0ff','#ffd9b3','#e0e8ff'];
+for(let i = 0; i < 120; i++){
+  const s = document.createElement('div');
+  s.className = 'star ' + (i % 3 === 1 ? 'type-gold' : i % 3 === 2 ? 'type-blue' : '');
+  const sz = 1 + Math.random() * 3.2;
+  const col = starColors[Math.floor(Math.random() * starColors.length)];
+  const dur = 1.5 + Math.random() * 3.5;
+  const delay = Math.random() * 5;
+  // reduced jiggle: only 1 in 12 stars jiggle instead of 1 in 5
+  const anim = i % 12 === 0 ? 'jiggle' : 'twinkle';
+  s.style.cssText = `
+    width:${sz}px; height:${sz}px;
+    left:${Math.random()*100}vw;
+    top:${Math.random()*85}vh;
+    background:${col};
+    box-shadow:0 0 ${sz*2}px ${sz*0.8}px ${col};
+    animation:${anim} ${dur}s ${delay}s ease-in-out infinite;
+    opacity:${0.3 + Math.random()*0.7};
+  `;
+  document.body.appendChild(s);
+}
+
+// Diamond / cross-shaped bright stars
+for(let i = 0; i < 18; i++){
+  const s = document.createElement('div');
+  s.style.cssText = `
+    position:fixed;
+    left:${Math.random()*100}vw;
+    top:${Math.random()*80}vh;
+    width:12px; height:12px;
+    pointer-events:none;
+    z-index:3;
+    animation:twinkle ${2+Math.random()*2.5}s ${Math.random()*4}s ease-in-out infinite;
+    transform-origin:center;
+  `;
+  const inner = `
+    <svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="6,0 7,5 12,6 7,7 6,12 5,7 0,6 5,5" fill="${i%2===0?'#F6C453':'#fff'}" opacity=".9"/>
+    </svg>`;
+  s.innerHTML = inner;
+  document.body.appendChild(s);
+}
+
+// Shooting stars
+function spawnShoot(){
+  const sh = document.createElement('div');
+  sh.className = 'shoot';
+  sh.style.cssText = `
+    left:${40+Math.random()*55}vw;
+    top:${Math.random()*40}vh;
+    animation-duration:${1.2+Math.random()*1.4}s;
+    animation-delay:0s;
+  `;
+  document.body.appendChild(sh);
+  setTimeout(()=>sh.remove(), 2800);
+}
+setInterval(spawnShoot, 3500 + Math.random()*4000);
+
+// Gold sparks — reduced from 34 to 16
+for(let i = 0; i < 16; i++){
+  const s = document.createElement('span');
+  s.className = 'spark';
+  s.style.left = Math.random()*100+'vw';
+  s.style.top  = Math.random()*100+'vh';
+  s.style.animationDelay = Math.random()*3+'s';
+  document.body.appendChild(s);
+}
+
+// Fireflies
+const ffC = ['#F6C453','#fff9c0','#c8ffc8','#ffffaa'];
+for(let i = 0; i < 28; i++){
+  const f = document.createElement('div');
+  f.className = 'firefly';
+  const sz = 2 + Math.random()*3.5;
+  const c  = ffC[Math.floor(Math.random()*ffC.length)];
+  f.style.cssText = `width:${sz}px;height:${sz}px;background:${c};box-shadow:0 0 ${sz*2.5}px ${sz}px ${c};left:${Math.random()*100}vw;bottom:${5+Math.random()*65}vh;animation-duration:${5+Math.random()*6}s;animation-delay:${Math.random()*10}s;`;
+  document.body.appendChild(f);
+}
+
+// Floating symbols
+const syms = ['&#128154;','&#10024;','&#11088;','&#127807;','&#128155;','&#10022;'];
+const fl = document.getElementById('floaters');
+function spawnFloat(){
+  const d = document.createElement('div');
+  d.className = 'floater';
+  d.innerHTML = syms[Math.floor(Math.random()*syms.length)];
+  d.style.cssText = `left:${33+Math.random()*34}%;bottom:${18+Math.random()*28}%;font-size:${8+Math.random()*10}px;animation-duration:${4+Math.random()*4}s;`;
+  fl.appendChild(d);
+  setTimeout(()=>d.remove(), 9000);
+}
+setInterval(spawnFloat, 1900);
+</script>
+</body>
+</html>
